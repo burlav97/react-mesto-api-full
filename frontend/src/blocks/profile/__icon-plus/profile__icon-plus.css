@@ -1,0 +1,4 @@
+.profile__button-add:hover .profile__icon-plus {
+  opacity: 0.6;
+  transition:  opacity .6s ease-in-out;
+}

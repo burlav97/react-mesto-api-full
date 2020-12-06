@@ -1,0 +1,27 @@
+.cards__item {
+    margin: 0 18px 21px 0;
+    width: 282px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.cards__item:nth-of-type(3n) {
+    margin-right: 0;
+}
+@media screen and (min-width : 1024px) and (max-width : 1279px) {
+    .cards__item {
+        width: 248px;
+    }
+ }
+ @media screen and (min-width : 768px) and (max-width : 1023px) {
+    .cards__item {
+        width: 215px;
+    }
+ }
+ @media screen and  (max-width : 767px) {
+    .cards__item {
+        width: 282px;
+        margin: 0 0 20px;
+    }
+ }

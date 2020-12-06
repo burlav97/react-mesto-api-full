@@ -1,0 +1,3 @@
+[submodule "react-mesto-api-full"]
+	path = react-mesto-api-full
+	url = https://github.com/burlav97/react-mesto-api-full.git

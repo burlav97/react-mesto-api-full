@@ -1,0 +1,33 @@
+@import url(./__item/cards__item.css);
+@import url(./__like/cards__like.css);
+@import url(./__like-sum/cards__like-sum.css);
+@import url(./__like-sum/_zero/cards__like-sum_zero.css);
+@import url(./__image/cards__image.css);
+@import url(./__title/cards__title.css);
+@import url(./__description/cards__description.css);
+@import url(./__button-like/cards__button-like.css);
+@import url(./__button-like/_active/cards__button-like_active.css);
+@import url(./__button-delete/cards__button-delete.css);
+@import url(./__button-delete/_visible/cards__button-delete_visible.css);
+@import url(./__button-delete/_hidden/cards__button-delete_hidden.css);
+
+.cards {
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+@media screen  and (max-width : 767px) {
+    .cards {
+        justify-content: center;
+    }
+}
+@media screen  and (max-width : 374px) {
+    .cards {
+        max-width: 282px;
+    }
+}

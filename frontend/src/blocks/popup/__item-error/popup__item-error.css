@@ -1,0 +1,17 @@
+.popup__item-error {
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  opacity: 0;
+  transition: 0.3s;
+  width: 358px;
+  margin: 5px 0 13px;
+}
+@media screen and (max-width: 767px) {
+  .popup__item-error {
+      max-width: 208px;
+      font-size: 0.7rem;
+  line-height: 1rem;
+  }
+}
+

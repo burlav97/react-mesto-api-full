@@ -1,0 +1,15 @@
+.cards__button-like_active {
+  opacity: 1;
+  background-image: url(../../../../images/heartactive.svg) center no-repeat;
+  cursor: pointer;
+  background-color: #fff;
+  border: 0;
+  padding: 0;
+  line-height: 1.8rem;
+  background-size: 20px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}

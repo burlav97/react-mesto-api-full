@@ -1,0 +1,18 @@
+
+.cards__button-like {
+  background-color: #fff;
+  border: 0;
+  padding: 0;
+  line-height: 1.8rem;
+  background: url(../../../images/like.svg);
+  background-size: 20px 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.cards__button-like:hover {
+  background-size: 23px 23px;
+  transition: background-size 0.8 ease-in-out;
+}
