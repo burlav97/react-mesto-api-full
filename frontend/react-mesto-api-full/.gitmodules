@@ -1,7 +1,0 @@
-[submodule "backend"]
-path=backend
-url=https://github.com/burlav97/react-mesto-api-full.git
-
-[submodule "frontend"]
-path=frontend
-url=https://github.com/burlav97/react-mesto-api-full.git
