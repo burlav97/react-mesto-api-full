@@ -17,7 +17,7 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import InfoTooltip from './InfoTooltip';
 import * as mestoAuth from '../mestoAuth.js';
-import {getToken, setToken, removeToken} from '../utils/token';
+import { getToken, setToken, removeToken } from '../utils/token';
 
 
 function App() {
@@ -77,7 +77,8 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     if (!isLiked) {
-      api.putLike(card._id).then((newCard) => {
+      const jwt = getToken();
+      api.putLike(card._id, jwt).then((newCard) => {
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
         setCards(newCards);
       })
@@ -85,7 +86,8 @@ function App() {
           console.log(err);
         });
     } else {
-      api.putDislike(card._id).then((newCard) => {
+      const jwt = getToken();
+      api.putDislike(card._id, jwt).then((newCard) => {
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
         setCards(newCards);
 
@@ -98,7 +100,8 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.removeCard(card._id).then(() => {
+    const jwt = getToken();
+    api.removeCard(card._id, jwt).then(() => {
       const newCards = cards.filter((c) => c._id !== card._id);
       setCards(newCards);
     })
@@ -108,7 +111,8 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
-    api.editUserInfo({ name, about }).then((res) => {
+    const jwt = getToken();
+    api.editUserInfo({ name, about }, jwt).then((res) => {
       setCurrentUser(res);
       closeAllPopups();
     })
@@ -118,7 +122,8 @@ function App() {
   }
 
   function handleUpdateAvatar(avatar) {
-    api.editAvatar(avatar).then((res) => {
+    const jwt = getToken();
+    api.editAvatar(avatar, jwt).then((res) => {
       setCurrentUser(res);
       closeAllPopups();
     })
@@ -128,7 +133,8 @@ function App() {
   }
 
   function handleAddPlace({ name, link }) {
-    api.addNewCard({ name, link }).then((newCard) => {
+    const jwt = getToken();
+    api.addNewCard({ name, link }, jwt).then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
     })
@@ -207,23 +213,37 @@ function App() {
           history.push('/')
         }
       })
-      .catch((err) => {
-        console.log(err.status);
-        if (err.status === 401) {
-          removeToken();
-          return console.log('Переданный токен некорректен');
-        } else if (!jwt) {
-          removeToken();
-          return console.log('Токен не передан или передан не в том формате');
-        } else if (err.status === 500) {
-          removeToken();
-          return console.log('Ошибка сервера');
-        }
-      });
+        .catch((err) => {
+          console.log(err.status);
+          if (err.status === 401) {
+            removeToken();
+            return console.log('Переданный токен некорректен');
+          } else if (!jwt) {
+            removeToken();
+            return console.log('Токен не передан или передан не в том формате');
+          } else if (err.status === 500) {
+            removeToken();
+            return console.log('Ошибка сервера');
+          }
+        });
     }
   }, []);
 
-
+  React.useEffect(() => {
+    if (!loggedIn) {
+      return
+    }
+    const jwt = getToken();
+    api.getAppInfo(jwt)
+      .then((res) => {
+        const [cards, info] = res;
+        setCurrentUser(info);
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log('Ошибка сервера');
+      });
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -235,32 +255,32 @@ function App() {
               loggedIn={loggedIn}
               onSignOut={onSignOut}
             />
-           <Switch>
-           <Route path="/signup">
-              <Register  onRegister={onRegister}  />
-            </Route>
-            <Route path="/signin">
-             <Login onLogin={onLogin} />
-           </Route>           
-           <ProtectedRoute exact path="/"
-              loggedIn={loggedIn}            
-              cards={cards}
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onTrashClick={handleTrashClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-              email={email}
-              component={Main}
-            /> 
-             <Route  path="/"  >
-               {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
-             </Route >              
-                                         
-                                        
-            </Switch> 
+            <Switch>
+              <Route path="/signup">
+                <Register onRegister={onRegister} />
+              </Route>
+              <Route path="/signin">
+                <Login onLogin={onLogin} />
+              </Route>
+              <ProtectedRoute exact path="/"
+                loggedIn={loggedIn}
+                cards={cards}
+                onEditProfile={handleEditProfileClick}
+                onEditAvatar={handleEditAvatarClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                onTrashClick={handleTrashClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+                email={email}
+                component={Main}
+              />
+              <Route path="/"  >
+                {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+              </Route >
+
+
+            </Switch>
             <Route exact path="/"  >
               <Footer />
             </Route>
