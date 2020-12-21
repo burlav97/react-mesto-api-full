@@ -3,4 +3,5 @@
   
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 https://burlav97.students.nomoredomains.icu
+https://api.burlav97.students.nomoredomains.icu
 IP - 178.154.225.42

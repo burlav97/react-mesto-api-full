@@ -1,3 +1,5 @@
+import { getToken }  from './token';
+
 export class Api {
   constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
@@ -17,20 +19,29 @@ export class Api {
 
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      }
     }).then((res) => this.resFetch(res));
   }
 
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      }
     }).then((res) => this.resFetch(res));
   }
 
   addNewCard({ name, link }) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      },
       body: JSON.stringify({ name, link }),
     }).then((res) => this.resFetch(res));
   }
@@ -38,14 +49,20 @@ export class Api {
   removeCard(cardId) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers:{
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      }
     }).then((res) => this.resFetch(res));
   }
 
   editUserInfo({ name, about }) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      },
       body: JSON.stringify({ name, about }),
     }).then((res) => this.resFetch(res));
   }
@@ -53,7 +70,10 @@ export class Api {
   editAvatar(avatar) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      },
       body: JSON.stringify(avatar),
     }).then((res) => this.resFetch(res));
   }
@@ -61,21 +81,26 @@ export class Api {
   putLike(cardId) {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
-      headers: this.headers,
+      headers:{
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      },
     }).then((res) => this.resFetch(res));
   }
 
   putDislike(cardId) {
     return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: {
+        ...this.headers,
+        'authorization': `Bearer ${getToken()}`
+      },
     }).then((res) => this.resFetch(res));
   }
 }
 export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-12',
+  baseUrl:  `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`,
   headers: {
-    authorization: '349fcff0-77c4-4e88-a6e9-879b96bc6112',
     'Content-Type': 'application/json'
   }
 });
