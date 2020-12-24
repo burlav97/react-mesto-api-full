@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import iconPlus from '../images/plus.svg';
-import iconEdit from '../images/penavatar.svg';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { CardsContext } from '../contexts/CardsContext';

@@ -160,6 +160,12 @@ function App() {
           return console.log('Некорректно заполнено одно из полей');
         }
         else if
+          (err.status === 409) {
+          setStatus('unsucess');
+          handleInfoTooltipOpen();
+          return console.log('Пользователь с таким email уже существует');
+        }
+        else if
           (err.status === 500) {
           setStatus('unsucess');
           handleInfoTooltipOpen();

@@ -79,7 +79,7 @@ export class Api {
   }
 
   putLike(cardId) {
-    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers:{
         ...this.headers,
@@ -99,7 +99,7 @@ export class Api {
   }
 }
 export const api = new Api({
-  baseUrl:  `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:'}`,
+  baseUrl:  'https://api.burlav97.students.nomoredomains.icu',
   headers: {
     'Content-Type': 'application/json'
   }

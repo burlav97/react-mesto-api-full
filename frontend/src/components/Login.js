@@ -35,7 +35,7 @@ const Login = ({onLogin}) => {
                     name="email"
                     placeholder="Email"
                     required
-                    minlength="2" maxlength="40"
+                    minLength="2" maxLength="40"
                     pattern="[а-яёА-ЯЁA-Za-z \-]*"
                     onChange={handleChange}
                     value={data.email || ''}/>
@@ -45,8 +45,8 @@ const Login = ({onLogin}) => {
                         id="password-input" name="password"
                         placeholder="Пароль"
                         required
-                        minlength="8"
-                        maxlength="20"
+                        minLength="8"
+                        maxLength="20"
                         onChange={handleChange}
                         value={data.password || ''}/>
                 <span className='popup__item-error' id='about-input-error'></span>
