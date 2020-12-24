@@ -99,7 +99,7 @@ export class Api {
   }
 }
 export const api = new Api({
-  baseUrl:  'https://api.burlav97.students.nomoredomains.icu',
+  baseUrl:  'https://api.mesroburlav97.students.nomoredomains.icu',
   headers: {
     'Content-Type': 'application/json'
   }
