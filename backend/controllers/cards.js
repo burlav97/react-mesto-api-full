@@ -1,7 +1,6 @@
 const Card = require('../models/card');
 const BadRequestError = require('../error/bad-request-err');
 const NotFoundError = require('../error/not-found-err');
-const ConflictError = require('../error/conflict-error');
 
 const getCards = (req, res, next) => {
   Card.find({})
@@ -47,7 +46,7 @@ const deleteCard = (req, res, next) => {
           res.send(newCard);
         });
       } else {
-        throw new ConflictError('Нельзя удалять чужую карточку');
+        throw new BadRequestError('Нельзя удалять чужую карточку');
       }
     })
     .catch((err) => {
