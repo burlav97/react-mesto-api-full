@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const AuthError = require('../error/auth-err');
-// не понимаю, что не так с jwt_secret, уже все перепробовала и перечитала теорию
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {

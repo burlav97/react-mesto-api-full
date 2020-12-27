@@ -5,8 +5,7 @@ const AuthError = require('../error/auth-err');
 const BadRequestError = require('../error/bad-request-err');
 const NotFoundError = require('../error/not-found-err');
 const ConflictError = require('../error/conflict-error');
-// перечитала теорию, не понимаю, что не так с jwt_secret, перепробовала разные варианты
-console.log(process.env.JWT_SECRET);
+
 const User = require('../models/user');
 
 console.log(process.env.NODE_ENV);
