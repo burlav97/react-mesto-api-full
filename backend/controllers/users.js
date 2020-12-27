@@ -1,4 +1,4 @@
-const { JWT_SECRET = 'dev-secret' } = process.env;
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const AuthError = require('../error/auth-err');
@@ -6,6 +6,7 @@ const BadRequestError = require('../error/bad-request-err');
 const NotFoundError = require('../error/not-found-err');
 const ConflictError = require('../error/conflict-error');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 
 const getUsers = (req, res, next) => {
@@ -91,9 +92,7 @@ const login = (req, res, next) => {
           if (!matched) {
             throw new AuthError('Неправильный пароль');
           }
-          const token = jwt.sign({ _id: user._id },
-            JWT_SECRET,
-            { expiresIn: '7d' });
+          const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
           return res.send({ token });
         })
         .catch(() => {

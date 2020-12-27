@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
-const auth = require('./middlewares/auth');
 const routes = require('./routes/index.js');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+require('dotenv').config();
 
 const { PORT = 3002 } = process.env;
 const app = express();
@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use('/', routes);
-app.use(auth);
 
 app.use(errorLogger);
 app.use(errors());
