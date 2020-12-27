@@ -7,7 +7,10 @@ const NotFoundError = require('../error/not-found-err');
 const ConflictError = require('../error/conflict-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
+console.log(process.env.JWT_SECRET);
 const User = require('../models/user');
+
+console.log(process.env.NODE_ENV);
 
 const getUsers = (req, res, next) => {
   User.find({})
