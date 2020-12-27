@@ -6,7 +6,6 @@ const BadRequestError = require('../error/bad-request-err');
 const NotFoundError = require('../error/not-found-err');
 const ConflictError = require('../error/conflict-error');
 // перечитала теорию, не понимаю, что не так с jwt_secret, перепробовала разные варианты
-const { NODE_ENV, JWT_SECRET } = process.env;
 console.log(process.env.JWT_SECRET);
 const User = require('../models/user');
 
@@ -95,6 +94,7 @@ const login = (req, res, next) => {
           if (!matched) {
             throw new AuthError('Неправильный пароль');
           }
+          const { NODE_ENV, JWT_SECRET } = process.env;
           const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
           return res.send({ token });
         })
