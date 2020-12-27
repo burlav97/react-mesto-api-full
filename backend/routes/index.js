@@ -1,3 +1,4 @@
+require('dotenv').config();
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const usersRoutes = require('./users.js');
@@ -24,9 +25,9 @@ router.post('/signin', celebrate({
     password: Joi.string().required().min(6),
   }),
 }), login);
-router.use(auth);
-router.use('/users', usersRoutes);
-router.use('/cards', cardsRoutes);
+
+router.use('/users', auth, usersRoutes);
+router.use('/cards', auth, cardsRoutes);
 router.use('*', (next, err) => {
   if (err.statusCode === 404) {
     const error = new NotFoundError('Запрашиваемый ресурс не найден');
